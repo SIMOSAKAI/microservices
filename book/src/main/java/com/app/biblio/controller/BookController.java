@@ -20,12 +20,12 @@ public class BookController {
     @Autowired
     private BookRepository bookRepository;
 
-    @GetMapping
+    @GetMapping("/all")
     public List<Book> getAllBooks() {
         return bookRepository.findAll();
     }
 
-    @PostMapping
+    @PostMapping("/add")
     public Book addBook (@RequestBody Book book) {
         return bookRepository.save(book);
     }

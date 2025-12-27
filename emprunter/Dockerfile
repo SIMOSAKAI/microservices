@@ -1,5 +1,5 @@
-FROM openjdk:17-jdk-slim
-ARG JAR_FILE=target/*.jar
-COPY ${JAR_FILE} user-service.jar
-EXPOSE 8081
-ENTRYPOINT ["java", "-jar", "/user-service.jar"]
+FROM openjdk:27-ea-oracle
+VOLUME /tmp
+COPY target/*.jar app.jar
+EXPOSE 8085
+ENTRYPOINT ["java", "-jar", "app.jar"]

@@ -13,6 +13,12 @@ public class Emprunter
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    public Long getId() {
+        return id;
+    }
+
+  
+
     private Long userId;  
     public Long getUserId() {
         return userId;

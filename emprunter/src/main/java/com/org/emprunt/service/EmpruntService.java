@@ -1,10 +1,14 @@
 package com.org.emprunt.service;
 
-
+import com.org.emprunt.DTO.EmpruntDetailsDTO;
 import com.org.emprunt.entities.Emprunter;
 import com.org.emprunt.feign.BookClient;
 import com.org.emprunt.feign.UserClient;
 import com.org.emprunt.repositories.EmpruntRepository;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.stereotype.Service;
 
 @Service
@@ -35,6 +39,19 @@ public class EmpruntService {
 
         return repo.save(b);
     }
+
+    public List<EmpruntDetailsDTO> getAllEmprunts() {
+        return repo.findAll().stream().map(e -> {
+
+            var user = userClient.getUser(e.getUserId());
+            var book = bookClient.getBook(e.getBookId());
+
+            return new EmpruntDetailsDTO(
+                    e.getId(),
+                    user.getName(),
+                    book.getTitle(),
+                    e.getEmpruntDate());
+        }).collect(Collectors.toList());
+    }
+
 }
-
-

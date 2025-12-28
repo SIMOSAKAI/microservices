@@ -3,12 +3,12 @@ version: "3.8"
 services:
 
   eureka-server:
-    build: ./eureka
-    container_name: eureka-service
+    build: ./eurika
+    container_name: eurika-service
     ports:
       - "8761:8761"
     environment:
-      - SPRING_APPLICATION_NAME=eureka-service
+      - SPRING_APPLICATION_NAME=eurika-service
     networks:
       - biblio-network
 

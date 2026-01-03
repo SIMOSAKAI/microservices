@@ -4,59 +4,54 @@ services:
 
   eureka-server:
     build: ./eurika
-    container_name: eurika-service
     ports:
       - "8761:8761"
     environment:
-      - SPRING_APPLICATION_NAME=eurika-service
+      - SPRING_APPLICATION_NAME=eureka-service
     networks:
       - biblio-network
 
   gateway-service:
     build: ./gateway
-    container_name: gateway-service
     ports:
       - "9999:9999"
     depends_on:
       - eureka-server
     environment:
       - SPRING_APPLICATION_NAME=gateway-service
-      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-service:8761/eureka
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka
     networks:
       - biblio-network
 
   user-service:
     build: ./user
-    container_name: user-service
     depends_on:
       - eureka-server
     environment:
       - SPRING_APPLICATION_NAME=user-service
-      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-service:8761/eureka
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka
     networks:
       - biblio-network
 
   book-service:
     build: ./book
-    container_name: book-service
     depends_on:
       - eureka-server
     environment:
       - SPRING_APPLICATION_NAME=book-service
-      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-service:8761/eureka
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka
     networks:
       - biblio-network
 
   emprunt-service:
     build: ./emprunter
-    container_name: emprunt-service
     depends_on:
       - eureka-server
       - user-service
       - book-service
     environment:
       - SPRING_APPLICATION_NAME=emprunt-service
-      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-service:8761/eureka
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka
     networks:
       - biblio-network
 

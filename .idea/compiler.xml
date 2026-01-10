@@ -10,6 +10,7 @@
         <module name="emprunt-service" />
         <module name="user" />
         <module name="gateway" />
+        <module name="notification-service" />
         <module name="book" />
       </profile>
     </annotationProcessing>
@@ -20,6 +21,7 @@
       <module name="emprunt-service" options="-parameters" />
       <module name="eurika" options="-parameters" />
       <module name="gateway" options="-parameters" />
+      <module name="notification-service" options="-parameters" />
       <module name="user" options="-parameters" />
     </option>
   </component>

@@ -1,6 +1,7 @@
 package com.org.emprunt.service;
 
 import com.org.emprunt.DTO.EmpruntDetailsDTO;
+import com.org.emprunt.DTO.EmpruntEvent;
 import com.org.emprunt.entities.Emprunter;
 import com.org.emprunt.feign.BookClient;
 import com.org.emprunt.feign.UserClient;
@@ -17,11 +18,13 @@ public class EmpruntService {
     private final EmpruntRepository repo;
     private final UserClient userClient;
     private final BookClient bookClient;
+    private final EmpruntProducer empruntProducer;
 
-    public EmpruntService(EmpruntRepository repo, UserClient userClient, BookClient bookClient) {
+    public EmpruntService(EmpruntRepository repo, UserClient userClient, BookClient bookClient, EmpruntProducer empruntProducer) {
         this.repo = repo;
         this.userClient = userClient;
         this.bookClient = bookClient;
+        this.empruntProducer = empruntProducer;
     }
 
     public Emprunter createEmprunt(Long userId, Long bookId) {
@@ -37,7 +40,16 @@ public class EmpruntService {
         b.setUserId(userId);
         b.setBookId(bookId);
 
-        return repo.save(b);
+        Emprunter saved = repo.save(b);
+
+        EmpruntEvent event = new EmpruntEvent(
+                saved.getId(),
+                saved.getUserId(),
+                saved.getBookId()
+        );
+        empruntProducer.sendEmpruntEvent(event);
+
+        return saved;
     }
 
     public List<EmpruntDetailsDTO> getAllEmprunts() {

@@ -1,6 +1,5 @@
-# Microservices Library Application
+# Nom & Prénom : elfatihi mohamed
 
-**Auteur:** ELFATIHI Mohamed
 
 **PS :** En cas de problème de compatibilité de versions Java/Maven lors du build, veuillez cloner le projet depuis la branche `func` qui contient déjà les fichiers JAR compilés, puis lancer directement :
 

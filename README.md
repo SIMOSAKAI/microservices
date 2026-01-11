@@ -2,6 +2,12 @@
 
 **Auteur:** ELFATIHI Mohamed
 
+**PS :** En cas de problème de compatibilité de versions Java/Maven lors du build, veuillez cloner le projet depuis la branche `func` qui contient déjà les fichiers JAR compilés, puis lancer directement :
+
+```bash
+docker-compose up --build
+```
+
 ## Description du Projet
 
 Ce projet est une application de gestion de bibliothèque basée sur une architecture microservices avec Spring Boot, Eureka, Kafka et MySQL.
